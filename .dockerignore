@@ -1,0 +1,7 @@
+node_modules
+docker-compose.dev.yml
+docker-compose.prod.yml
+Dockerfile
+__tests__
+coverage
+.env.local

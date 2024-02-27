@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  mongo:
+    container_name: database
+    image: mongo:latest
+    restart: always
+    ports:
+      - 2717:27017
+    volumes:
+      - ./prod-datastore:/data/db
+
+  app:
+    container_name: SimpleApp
+    build:
+      context: .
+      args:
+        configuration: production
+    ports:
+      - 8080:3000
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+      - DB_URI=mongodb://mongo:27017/todoDB
+      - JWT_SECRET="mysecret1234@zonix"
+      - JWT_DURATION=1h
+    depends_on:
+      - mongo
